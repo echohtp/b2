@@ -116,28 +116,28 @@ export const NftEdit = () => {
   const updateNft = async () => {
     //upload new metadata
     toast('upload metadata')
-    const { uri: newUri } = await metaplex
-      .nfts()
-      .uploadMetadata(nftData)
-      .run()
+    // const { uri: newUri } = await metaplex
+    //   .nfts()
+    //   .uploadMetadata(nftData)
+    //   .run()
 
-    console.log('new uri: ', newUri)
+    // console.log('new uri: ', newUri)
 
-    //set on chain data
-    toast('set on chain and update uri')
-    const { nft: updatedNft } = await metaplex
-      .nfts()
-      .update(selectedNft, {
-        name: nftData.name,
-        symbol: nftData.symbol,
-        sellerFeeBasisPoints: nftData.seller_fee_basis_points,
-        uri: newUri
-      })
-      .run()
+    // //set on chain data
+    // toast('set on chain and update uri')
+    // const { nft: updatedNft } = await metaplex
+    //   .nfts()
+    //   .update(selectedNft, {
+    //     name: nftData.name,
+    //     symbol: nftData.symbol,
+    //     sellerFeeBasisPoints: nftData.seller_fee_basis_points,
+    //     uri: newUri
+    //   })
+    //   .run()
 
     console.log('selected mint: ', selectedNft.mintAddress.toBase58())
     // console.log('updated mint: ', updatedMetaplexNft.mintAddress.toBase58())
-    console.log('updated nft: ', updatedNft.mintAddress.toBase58())
+    // console.log('updated nft: ', updatedNft.mintAddress.toBase58())
     ga.event({ action: 'nft_edit', params: { who: wallet.publicKey?.toBase58() } })
     setToggler(!toggler)
     toast('done')
@@ -185,27 +185,27 @@ export const NftEdit = () => {
     }
   }, [publicKey, GET_NFTS, toggler])
 
-  const loadNft = async (mintAddress: string) => {
-    const nPK = new PublicKey(mintAddress)
+  // const loadNft = async (mintAddress: string) => {
+  //   const nPK = new PublicKey(mintAddress)
 
-    const nft = await metaplex
-      .nfts()
-      .findByMint(nPK)
-      .run()
-    setSelectedNft(nft)
-    console.log(nft.uri)
-    // send it to modal
+  //   const nft = await metaplex
+  //     .nfts()
+  //     .findByMint(nPK)
+  //     .run()
+  //   setSelectedNft(nft)
+  //   console.log(nft.uri)
+  //   // send it to modal
 
-    axios.get(nft.uri).then(res => {
-      console.log('got data')
-      let data = res.data
-      console.log(data)
-      setModalData(data)
-    })
+  //   axios.get(nft.uri).then(res => {
+  //     console.log('got data')
+  //     let data = res.data
+  //     console.log(data)
+  //     setModalData(data)
+  //   })
 
-    //@ts-ignore
-    document.getElementById('my-modal-3').checked = true
-  }
+  //   //@ts-ignore
+  //   document.getElementById('my-modal-3').checked = true
+  // }
 
   return (
     <div>
@@ -218,7 +218,7 @@ export const NftEdit = () => {
                 setSearchMint(e.target.value)
               })} />
               <button className='w-1/12 btn btn-secondary' onClick={() => {
-                loadNft(searchMint)
+                // loadNft(searchMint)
               }}>
                 load nft
               </button>
@@ -247,7 +247,7 @@ export const NftEdit = () => {
                     }}
                     select={async () => {
                       // get NFT data from metaplex
-                      loadNft(n.mintAddress)
+                      // loadNft(n.mintAddress)
                     }}
                     selected={false}
                   />
