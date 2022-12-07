@@ -10,6 +10,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.7.2",
+    "@emotion/react": "^11.10.5",
     "@headlessui/react": "^1.7.4",
     "@headlessui/tailwindcss": "^0.1.2",
     "@jsonforms/core": "^3.0.0",
