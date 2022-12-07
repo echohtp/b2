@@ -8,6 +8,7 @@ import { useWallet } from '@solana/wallet-adapter-react'
 import client from '../client'
 import { PublicKey } from '@solana/web3.js'
 import { NftEdit } from '../components/NftEdit'
+import { toast } from 'react-toastify'
 
 const GET_NFTS = gql`
 query GetNfts($owners: [PublicKey!], $limit: Int!, $offset: Int!) {
@@ -119,8 +120,12 @@ export default function Home() {
                   {tools.map((t, idx) => (
                     <button key={idx} className='p-10 rounded-lg text-center grid grid-flow-row hover:bg-gray-600 lg:max-w-sm bg-gray-700'
                       onClick={() => {
-                        setToolTab(t)
-                        setSelectedTabIndex(2)
+                        if (wallet.connected) {
+                          setToolTab(t)
+                          setSelectedTabIndex(2)
+                        }else{
+                          toast.warning("Connect to use 🔌")
+                        }
                       }}
                     >
                       <div className='text-4xl'>{t.icon}</div>
@@ -197,8 +202,7 @@ export default function Home() {
               </Tab.Panel>
               <Tab.Panel>
                 <div className="h-screen">
-                  {toolTab?.href == "editor" && <NftEdit/>}
-
+                  {toolTab?.href == "editor" && <NftEdit />}
                 </div>
               </Tab.Panel>
             </Tab.Panels>

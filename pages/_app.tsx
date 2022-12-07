@@ -75,7 +75,7 @@ function MyApp({ Component, pageProps }: AppProps) {
     <ConnectionProvider endpoint={endpoint}>
         <WalletProvider wallets={wallets} autoConnect>
             <WalletModalProvider>
-                <ToastContainer/>
+                <ToastContainer theme="dark"/>
                 <Component {...pageProps} />
             </WalletModalProvider>
         </WalletProvider>
