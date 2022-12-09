@@ -9,6 +9,7 @@ import client from '../client'
 import { PublicKey } from '@solana/web3.js'
 import { NftEdit } from '../components/NftEdit'
 import { toast } from 'react-toastify'
+import NftMint from '../components/NftMint'
 
 const GET_NFTS = gql`
 query GetNfts($owners: [PublicKey!], $limit: Int!, $offset: Int!) {
@@ -56,6 +57,7 @@ export default function Home() {
 
     if (wallet.disconnecting) {
       setSelectedTabIndex(0)
+      setToolTab(null)
       setActions([])
       setNfts([])
     }
@@ -118,7 +120,7 @@ export default function Home() {
               <Tab.Panel>
                 <div className="grid gap-10 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
                   {tools.map((t, idx) => (
-                    <button key={idx} className='p-10 rounded-lg text-center grid grid-flow-row hover:bg-gray-600 lg:max-w-sm bg-gray-700'
+                    <button key={idx} className='p-10 rounded-lg text-center hover:bg-gray-600 lg:max-w-sm bg-gray-700'
                       onClick={() => {
                         if (wallet.connected) {
                           setToolTab(t)
@@ -203,6 +205,7 @@ export default function Home() {
               <Tab.Panel>
                 <div className="h-screen">
                   {toolTab?.href == "editor" && <NftEdit />}
+                  {toolTab?.href == "nftmint" && <NftMint />}
                 </div>
               </Tab.Panel>
             </Tab.Panels>
