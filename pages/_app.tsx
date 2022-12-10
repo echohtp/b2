@@ -28,6 +28,7 @@ import { ToastContainer } from 'react-toastify'
 
 // Default styles that can be overridden by your app
 require('@solana/wallet-adapter-react-ui/styles.css');
+import 'semantic-ui-css/semantic.min.css'
 
 function MyApp({ Component, pageProps }: AppProps) {
 

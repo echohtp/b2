@@ -10,6 +10,9 @@ import { PublicKey } from '@solana/web3.js'
 import { NftEdit } from '../components/NftEdit'
 import { toast } from 'react-toastify'
 import NftMint from '../components/NftMint'
+import CloseNfts from '../components/CloseNfts'
+import QuickMint from '../components/QuickMint'
+import UpdateUA from '../components/updateUA'
 
 const GET_NFTS = gql`
 query GetNfts($owners: [PublicKey!], $limit: Int!, $offset: Int!) {
@@ -28,7 +31,7 @@ query GetNfts($owners: [PublicKey!], $limit: Int!, $offset: Int!) {
 `
 
 const tools = [
-  { title: 'Airdrop Cannon', href: 'airdropcannon', subtitle: 'Send NFTs to wallets. Pretty simple.', icon: '💣' },
+  { title: 'Airdrop Cannon', href: 'airdropcannon', subtitle: 'Send NFTs to wallets. Pretty simple.', icon: '💣'},
   { title: 'Burn', href: 'burn', subtitle: 'Nuke NFTs you don\'t want anymore.', icon: '🔥' },
   { title: 'Change Update Auth', href: 'updateua', subtitle: 'Transfer update authority of NFTs.', icon: '🤝' },
   { title: 'Close Accts', href: 'closeaccts', subtitle: 'Reclaim any sol rent from old accounts.', icon: '💸' },
@@ -88,7 +91,7 @@ export default function Home() {
 
   return (
     <>
-      <div className='container mx-auto bg-gray-800 text-gray-100 max-w-[1250px] max-h-fit px-10'>
+      <div className='container mx-auto dark:bg-gray-800 dark:text-gray-100 text-gray-800 max-w-full max-h-fit px-10'>
         <Head>
           <title>🍌 Banana Tools</title>
           <meta name="description" content="" />
@@ -102,9 +105,9 @@ export default function Home() {
         </div>
 
 
-        <div className="max-h-fit">
+        <div className="max-h-fit pb-4">
           <Tab.Group key={selectedTabIndex} defaultIndex={selectedTabIndex} onChange={index => setSelectedTabIndex(index)}>
-            <Tab.List className="font-bold pt-4 py-8">
+            <Tab.List className="font-bold pt-4 py-8 grid grid-flow-row">
               <Tab className="pr-8 text-4xl ui-selected:underline">
                 🍌 Tools
               </Tab>
@@ -118,9 +121,9 @@ export default function Home() {
             </Tab.List>
             <Tab.Panels>
               <Tab.Panel>
-                <div className="grid gap-10 lg:grid-cols-3 md:grid-cols-2 grid-cols-1">
+                <div className="grid gap-10 lg:grid-cols-3 md:grid-cols-2 grid-cols-1 max-w-[1000px] mx-auto">
                   {tools.map((t, idx) => (
-                    <button key={idx} className='p-10 rounded-lg text-center hover:bg-gray-600 lg:max-w-sm bg-gray-700'
+                    <button key={idx} className='p-10 rounded-lg text-center dark:hover:bg-gray-600 lg:max-w-sm dark:bg-gray-700 bg-amber-500 hover:bg-amber-600'
                       onClick={() => {
                         if (wallet.connected) {
                           setToolTab(t)
@@ -206,6 +209,9 @@ export default function Home() {
                 <div className="h-screen">
                   {toolTab?.href == "editor" && <NftEdit />}
                   {toolTab?.href == "nftmint" && <NftMint />}
+                  {toolTab?.href == "closeaccts" && <CloseNfts />}
+                  {toolTab?.href == "quickmint" && <QuickMint />}
+                  {toolTab?.href == "updateua" && <UpdateUA nfts={nfts} />}
                 </div>
               </Tab.Panel>
             </Tab.Panels>
